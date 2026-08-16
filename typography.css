@@ -1,0 +1,283 @@
+/* Authoritative typography system. Sizes change only at defined breakpoints. */
+:root {
+  --type-h1: 88px;
+  --type-h2: 64px;
+  --type-h3: 40px;
+  --type-h4: 30px;
+  --type-h5: 24px;
+  --type-h6: 20px;
+  --type-lead: 20px;
+  --type-body: 16px;
+  --type-ui: 18px;
+  --type-meta: 14px;
+  --type-legal: 13px;
+}
+
+body {
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+}
+
+h1 { font-size: var(--type-h1); line-height: .95; letter-spacing: -.05em; }
+h2 { font-size: var(--type-h2); line-height: 1.02; letter-spacing: -.045em; }
+h3 { font-size: var(--type-h3); line-height: 1.08; letter-spacing: -.04em; }
+h4 { font-size: var(--type-h4); line-height: 1.12; letter-spacing: -.03em; }
+h5 { font-size: var(--type-h5); line-height: 1.18; letter-spacing: -.02em; }
+h6 { font-size: var(--type-h6); line-height: 1.25; letter-spacing: -.01em; }
+
+/* H1 — first-screen offer. */
+.hero h1,
+.hero h1.hero__price-title {
+  font-size: var(--type-h1);
+  line-height: .95;
+}
+
+.hero__price-title span { white-space: nowrap; }
+.hero__price-title span + span { margin-top: .18em; }
+
+/* H2 — primary section titles. */
+.manifesto h2,
+.location h2,
+.benefits h2,
+.showroom h2,
+.readiness h2,
+.apartments h2,
+.purchase h2,
+.request h2 {
+  font-size: var(--type-h2);
+  line-height: 1.02;
+}
+
+/* H3 — readiness cards. */
+.ready-card h3 {
+  font-size: var(--type-h3);
+  line-height: 1.08;
+}
+
+/* H4 — comfort, apartment plans and purchase-condition cards. */
+.comfort-card__body strong {
+  font: 400 var(--type-h4)/1.12 var(--serif);
+  letter-spacing: -.03em;
+}
+
+.plan__top h4 {
+  font: 500 var(--type-h4)/1.12 var(--serif);
+  letter-spacing: -.03em;
+  text-transform: none;
+}
+
+.purchase-card h4 {
+  margin: auto 0 30px;
+  font: 400 var(--type-h4)/1.12 var(--serif);
+  letter-spacing: -.03em;
+}
+
+/* Lead paragraphs. */
+.manifesto__lead {
+  font-size: var(--type-lead);
+  line-height: 1.55;
+}
+
+/* Standard running copy. */
+.location__intro,
+.benefits__intro,
+.comfort-card__detail,
+.showroom__aside p,
+.apartments__heading > p:last-child,
+.plan__bottom p,
+.purchase-card p,
+.request__copy > p:last-child,
+.footer > div a,
+.footer > div p {
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+
+/* Primary interface text. */
+.site-nav a,
+.header-phone,
+.header-cta,
+.hero__project,
+.hero__bottom > small,
+.round-link,
+.showroom__aside a,
+.plan__bottom a,
+.lead-form button,
+.footer__up,
+.ticker div {
+  font-size: var(--type-ui);
+}
+
+.site-header .site-nav a,
+.site-header .header-phone {
+  font-family: var(--sans);
+  font-size: var(--type-meta);
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+/* Section labels, card indexes and compact supporting information. */
+.kicker,
+.manifesto__footer,
+.comfort-card__number,
+.comfort-card__action,
+.comfort-mobile-status,
+.showroom__rail figcaption,
+.ready-card span,
+.feature-tags span,
+.plan__top,
+.purchase-card > span,
+.lead-form label > span,
+.lead-form legend,
+.footer > div > span {
+  font-size: var(--type-meta);
+  line-height: 1.45;
+}
+
+.lead-form fieldset span,
+.form-status {
+  font-size: var(--type-body);
+}
+
+.form-legal {
+  font-size: var(--type-legal);
+  line-height: 1.5;
+}
+
+/* Unified “Получить подборку” buttons on every breakpoint. */
+.header-cta,
+.hero__main-cta,
+.offers-cta {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: max-content;
+  height: auto;
+  min-height: 48px;
+  flex: 0 0 auto;
+  gap: 10px;
+  justify-content: center;
+  padding: 14px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font: 500 18px/1 var(--sans);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.header-cta {
+  border-color: rgba(255,255,255,.4);
+}
+
+.header-cta b,
+.hero__main-cta b {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+}
+
+.hero__main-cta {
+  grid-column: 1;
+  grid-row: auto;
+  justify-self: start;
+  margin: 28px 0 0 9%;
+}
+
+@media (max-width: 1199px) {
+  :root {
+    --type-h1: 72px;
+    --type-h2: 52px;
+    --type-h3: 34px;
+    --type-h4: 28px;
+    --type-h5: 22px;
+    --type-h6: 18px;
+    --type-lead: 18px;
+    --type-body: 16px;
+    --type-ui: 18px;
+    --type-meta: 14px;
+    --type-legal: 12px;
+  }
+
+  .hero h1.hero__price-title { font-size: 60px; }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --type-h1: 46px;
+    --type-h2: 38px;
+    --type-h3: 28px;
+    --type-h4: 24px;
+    --type-h5: 20px;
+    --type-h6: 18px;
+    --type-lead: 18px;
+    --type-body: 16px;
+    --type-ui: 18px;
+    --type-meta: 13px;
+    --type-legal: 12px;
+  }
+
+  .hero h1,
+  .hero h1.hero__price-title {
+    font-size: 38px;
+  }
+
+  .manifesto h2,
+  .location h2,
+  .benefits h2,
+  .showroom h2,
+  .readiness h2,
+  .apartments h2,
+  .purchase h2,
+  .request h2 {
+    font-size: var(--type-h2);
+  }
+
+  .ready-card h3 {
+    font-size: var(--type-h3);
+  }
+
+  .comfort-card__body strong,
+  .purchase-card h4,
+  .plan__top h4 {
+    font-size: var(--type-h4);
+  }
+
+  .site-header {
+    gap: 8px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .brand__logo { width: 110px; }
+
+  .hero__main-cta {
+    margin: 22px 0 0 6%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__main-cta { margin-left: 0; }
+}
+
+/* Шоу-рум: три уровня — заголовок, основной текст и единый служебный стиль. */
+.showroom__heading .kicker,
+.showroom__aside a,
+.showroom__rail figcaption {
+  font-family: var(--sans);
+  font-size: var(--type-ui);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}

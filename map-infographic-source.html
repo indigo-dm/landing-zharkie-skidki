@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Карта инфраструктуры — Новый Горизонт</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Literata:opsz,wght@7..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 1600px; height: 1000px; margin: 0; overflow: hidden; background: #e9e4da; }
+    body { font-family: "Golos Text", Arial, sans-serif; color: #18332b; }
+    #infographic { position: relative; width: 1600px; height: 1000px; overflow: hidden; background: #e9e4da; }
+    #map { position: absolute; inset: 0; background: #e9e4da; }
+    .leaflet-tile-pane { filter: grayscale(.76) sepia(.18) saturate(.72) brightness(1.06) contrast(.92); }
+    .leaflet-overlay-pane { mix-blend-mode: multiply; }
+    .leaflet-control-zoom { display: none; }
+    .leaflet-control-attribution { padding: 5px 9px !important; background: rgba(245,242,235,.9) !important; color: #53675f !important; font-size: 11px !important; }
+    .leaflet-control-attribution a { color: #31594c !important; }
+    .map-note { position: absolute; z-index: 800; left: 44px; bottom: 34px; max-width: 470px; padding: 13px 17px; background: rgba(245,242,235,.94); color: #53675f; font-size: 13px; line-height: 1.4; box-shadow: 0 12px 34px rgba(16,42,34,.12); }
+    .leaflet-div-icon { background: transparent; border: 0; }
+    .poi-wrap, .project-wrap { position: relative; width: 0; height: 0; overflow: visible; }
+    .poi-dot { position: absolute; left: -16px; top: -16px; width: 32px; height: 32px; display: grid; place-items: center; border: 3px solid #f5f1e8; border-radius: 50%; background: #c56642; color: #fff; font-size: 11px; font-weight: 600; box-shadow: 0 5px 16px rgba(22,52,43,.25); }
+    .poi-card { position: absolute; width: 245px; padding: 14px 16px 15px; background: rgba(248,245,238,.97); border-left: 4px solid #c56642; box-shadow: 0 12px 34px rgba(22,52,43,.19); color: #17352c; }
+    .poi-card--right { left: 25px; top: -42px; }
+    .poi-card--left { right: 25px; top: -42px; }
+    .poi-card--below { left: -122px; top: 25px; }
+    .poi-card--above { left: -122px; bottom: 25px; }
+    .poi-card strong { display: block; margin-bottom: 7px; font-size: 17px; font-weight: 600; line-height: 1.2; }
+    .poi-card span { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; color: #61736c; font-size: 13px; letter-spacing: .02em; }
+    .poi-card b { color: #c56642; font-size: 18px; font-weight: 600; white-space: nowrap; }
+    .poi-card--with-photo { width: 330px; min-height: 108px; padding: 0; display: grid; grid-template-columns: 124px 1fr; overflow: hidden; }
+    .poi-card__photo { width: 124px; height: 108px; background-position: 54% 50%; background-size: cover; background-repeat: no-repeat; }
+    .poi-card__content { min-width: 0; align-self: center; padding: 13px 14px; }
+    .project-card { position: absolute; right: 18px; top: -62px; width: 360px; min-height: 124px; padding: 18px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: #173f34; color: #f6f1e8; box-shadow: 0 16px 42px rgba(16,43,34,.3); }
+    .project-card img { width: 220px; max-width: 100%; height: auto; display: block; }
+    .project-card__copy { min-width: 0; padding: 0; border: 0; text-align: center; }
+    .project-card span { display: block; margin: 0; color: #c9d4cf; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main id="infographic" aria-label="Карта объектов рядом с жилым комплексом Новый Горизонт">
+    <div id="map"></div>
+    <div class="map-note">Время указано для спокойного пешего маршрута. Расстояния приведены по согласованным маршрутам.</div>
+  </main>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const project = [47.2655682, 39.7313887];
+    const places = [
+      { number: "01", name: "ТРЦ «Горизонт»", distance: "900 м", time: "10 минут", point: [47.2592849, 39.7187061], direction: "right", photo: "assets/user/trc-gorizont.jpg" },
+      { number: "02", name: "Аквапарк H2O", distance: "950 м", time: "11 минут", point: [47.2629639, 39.7204234], direction: "right", photo: "assets/user/aquapark-h2o.jpg" },
+      { number: "03", name: "Проспект Нагибина", distance: "880 м", time: "11 минут", point: [47.2662, 39.7189], direction: "left", photo: "assets/user/prospekt-nagibina.jpg" },
+      { number: "04", name: "Роща СКА", distance: "1,2 км", time: "15 минут", point: [47.2753101, 39.7285625], direction: "below", photo: "assets/user/roscha-ska.jpg" },
+      { number: "05", name: "Школа №82", distance: "1,41 км", time: "17 минут", point: [47.2696375, 39.7165760], direction: "right", photo: "assets/user/school-location.jpg" }
+    ];
+
+    const map = L.map("map", { zoomControl: false, attributionControl: true, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, tap: false, zoomSnap: .1 });
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap" }).addTo(map);
+    map.fitBounds([project, ...places.map(place => place.point)], { padding: [82, 82], maxZoom: 16 });
+
+    const routePane = map.createPane("routes");
+    routePane.style.zIndex = 420;
+    places.forEach(place => {
+      L.polyline([project, place.point], { pane: "routes", color: "#c56642", weight: 3, opacity: .72, dashArray: "8 10", lineCap: "round" }).addTo(map);
+      const cardContent = `<div class="poi-card__content"><strong>${place.name}</strong><span>${place.distance} пешком <b>${place.time}</b></span></div>`;
+      const photo = place.photo ? `<div class="poi-card__photo" aria-hidden="true" style="background-image:url('${place.photo}')"></div>` : "";
+      const photoClass = place.photo ? " poi-card--with-photo" : "";
+      const html = `<div class="poi-wrap"><div class="poi-dot">${place.number}</div><div class="poi-card poi-card--${place.direction}${photoClass}">${photo}${cardContent}</div></div>`;
+      L.marker(place.point, { icon: L.divIcon({ html, className: "", iconSize: [0, 0], iconAnchor: [0, 0] }), interactive: false, zIndexOffset: 600 }).addTo(map);
+    });
+
+    const projectHtml = `<div class="project-wrap"><div class="project-card"><img src="assets/official/logo-project-official.svg" alt="Новый Горизонт" /><div class="project-card__copy"><span>ул. Тибетская, 1В</span></div></div></div>`;
+    L.marker(project, { icon: L.divIcon({ html: projectHtml, className: "", iconSize: [0, 0], iconAnchor: [0, 0] }), interactive: false, zIndexOffset: 1000 }).addTo(map);
+
+    window.addEventListener("load", () => setTimeout(() => document.body.dataset.ready = "true", 1200));
+  </script>
+</body>
+</html>
