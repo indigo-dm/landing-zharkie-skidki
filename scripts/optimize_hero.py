@@ -21,13 +21,9 @@ def main() -> None:
             webp_path = OUTPUT / f"hero-lemonade-{width}.webp"
             resized.save(webp_path, "WEBP", quality=80, method=6)
 
-            avif_path = OUTPUT / f"hero-lemonade-{width}.avif"
-            resized.save(avif_path, "AVIF", quality=58, speed=6)
-
             print(
                 f"{width}x{height}: "
-                f"WebP {webp_path.stat().st_size / 1024:.1f} KiB, "
-                f"AVIF {avif_path.stat().st_size / 1024:.1f} KiB"
+                f"WebP {webp_path.stat().st_size / 1024:.1f} KiB"
             )
 
 
