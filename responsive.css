@@ -156,7 +156,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .loader__line i, .ticker div { animation: none; }
+  .ticker div { animation: none; }
   .reveal { opacity: 1; transform: none; }
   .hero__media { transform: none !important; }
 }

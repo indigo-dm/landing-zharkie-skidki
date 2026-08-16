@@ -8,6 +8,7 @@
   <title>Жаркие скидки — ЖК «Новый Горизонт»</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" type="image/avif" href="assets/optimized/hero-lemonade-1280.avif" imagesrcset="assets/optimized/hero-lemonade-480.avif 480w, assets/optimized/hero-lemonade-768.avif 768w, assets/optimized/hero-lemonade-1280.avif 1280w, assets/optimized/hero-lemonade-1920.avif 1920w" imagesizes="(min-width: 769px) 120vw, 106vw" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="responsive.css" />
@@ -15,7 +16,6 @@
 </head>
 <body>
   <a class="skip-link" href="#main">К содержанию</a>
-  <div class="loader" aria-hidden="true"><img class="loader__logo" src="assets/official/logo-project-official.svg" alt="" /><div class="loader__line"><i></i></div><span>Новый горизонт начинается</span></div>
   <div class="noise" aria-hidden="true"></div>
   <div class="cursor" aria-hidden="true"><span>Смотреть</span></div>
 
@@ -32,7 +32,13 @@
 
   <main id="main">
     <section class="hero" id="top">
-      <div class="hero__media" data-parallax="0.08"><img src="assets/user/hero-lemonade-discount.png" alt="Жаркие скидки до 2 миллионов рублей — рекламный креатив с лимонадом" /></div>
+      <div class="hero__media" data-parallax="0.08">
+        <picture>
+          <source type="image/avif" srcset="assets/optimized/hero-lemonade-480.avif 480w, assets/optimized/hero-lemonade-768.avif 768w, assets/optimized/hero-lemonade-1280.avif 1280w, assets/optimized/hero-lemonade-1920.avif 1920w" sizes="(min-width: 769px) 120vw, 106vw" />
+          <source type="image/webp" srcset="assets/optimized/hero-lemonade-480.webp 480w, assets/optimized/hero-lemonade-768.webp 768w, assets/optimized/hero-lemonade-1280.webp 1280w, assets/optimized/hero-lemonade-1920.webp 1920w" sizes="(min-width: 769px) 120vw, 106vw" />
+          <img src="assets/optimized/hero-lemonade-1280.webp" width="2302" height="1854" loading="eager" fetchpriority="high" alt="Жаркие скидки до 2 миллионов рублей — рекламный креатив с лимонадом" />
+        </picture>
+      </div>
       <div class="hero__veil"></div>
       <div class="hero__content">
         <h1 class="hero__price-title"><span>Квартиры в Ростове</span><span class="hero__title-indent">от <strong>118 000 ₽/м²*</strong></span></h1>

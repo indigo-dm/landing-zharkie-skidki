@@ -1,6 +1,3 @@
-document.body.classList.add('is-loading');
-
-const loader = document.querySelector('.loader');
 const header = document.querySelector('.site-header');
 const cursor = document.querySelector('.cursor');
 const cursorLabel = cursor?.querySelector('span');
@@ -18,13 +15,6 @@ const comfortCounter = document.querySelector('[data-comfort-current]');
 const form = document.querySelector('.lead-form');
 const phoneInput = form?.querySelector('input[type="tel"]');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-window.addEventListener('load', () => {
-  window.setTimeout(() => {
-    loader?.classList.add('is-done');
-    document.body.classList.remove('is-loading');
-  }, reducedMotion ? 100 : 900);
-});
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
