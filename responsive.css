@@ -79,7 +79,7 @@
   .comfort-card__action { left: 22px; right: 22px; min-height: 56px; }
   .comfort-mobile-status { display: flex; justify-content: space-between; gap: 28px; align-items: flex-start; margin-top: 18px; color: var(--muted); font-size: 13px; line-height: 1.45; letter-spacing: .04em; }
   .comfort-mobile-status span { color: var(--ink); white-space: nowrap; }
-  .comfort-mobile-status b { color: var(--copper); font: inherit; }
+  .comfort-mobile-status b { color: #9a4d32; font: inherit; }
   .comfort-mobile-status p { max-width: 250px; text-align: right; }
 
   .showroom { padding-bottom: 88px; }

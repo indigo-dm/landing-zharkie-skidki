@@ -58,7 +58,7 @@
   --logo-gold: #dab267;
   --sage: #98a79e;
   --copper: #b96543;
-  --muted: #686f6a;
+  --muted: #535a55;
   --line: rgba(32, 37, 34, .16);
   --line-light: rgba(255, 255, 255, .22);
   --sans: 'Golos Text', Arial, sans-serif;
@@ -259,7 +259,7 @@ button { color: inherit; }
 .plan[hidden] { display: none; }
 .plan__top, .plan__bottom { display: flex; justify-content: space-between; align-items: center; }
 .plan__top { min-height: 44px; gap: 16px; }
-.plan__top h4 { font: 400 clamp(22px, 2vw, 32px)/1 var(--serif); letter-spacing: -.035em; }
+.plan__top h3 { font: 400 clamp(22px, 2vw, 32px)/1 var(--serif); letter-spacing: -.035em; }
 .plan__top b { flex: 0 0 auto; font: 400 clamp(25px, 2.2vw, 34px)/1 var(--serif); letter-spacing: -.045em; }
 .plan__image, .plan--dark .plan__image { height: clamp(340px, 30vw, 440px); display: grid; place-items: center; padding: clamp(24px, 3vw, 42px); background: #fff; }
 .plan__image img, .plan--dark .plan__image img { width: 100%; height: 100%; object-fit: contain; object-position: center center; mix-blend-mode: multiply; }
@@ -296,7 +296,7 @@ button { color: inherit; }
 .purchase__track { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .purchase-card { position: relative; min-width: 0; height: 400px; display: flex; flex-direction: column; padding: 28px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
 .purchase-card > span { font-size: 9px; letter-spacing: .09em; text-transform: uppercase; }
-.purchase-card h3, .purchase-card h4 { margin: auto 0 24px; letter-spacing: -.04em; }
+.purchase-card h3 { margin: auto 0 24px; letter-spacing: -.04em; }
 .purchase-card p { max-width: 350px; color: var(--muted); font-size: 16px; line-height: 1.7; }
 .purchase-card > b { position: absolute; top: 25px; right: 25px; font: 400 60px/1 var(--serif); opacity: .18; }
 .purchase-card--arrow > b { width: 72px; height: 72px; display: grid; place-items: center; border: 1px solid var(--line); font: 400 30px/1 var(--sans); opacity: .45; }
@@ -330,7 +330,7 @@ button { color: inherit; }
 .footer { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr auto; gap: 42px; padding: 52px var(--gutter); background: #0e201a; color: var(--ivory); border-top: 1px solid rgba(255,255,255,.14); }
 .brand--footer .brand-lockup b { font-size: 20px; }
 .footer > div { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
-.footer > div > span { margin-bottom: 9px; color: #73887d; font-size: 8px; letter-spacing: .1em; text-transform: uppercase; }
+.footer > div > span { margin-bottom: 9px; color: #768b80; font-size: 8px; letter-spacing: .1em; text-transform: uppercase; }
 .footer > div a, .footer > div p { font-size: 14px; line-height: 1.7; }
 .footer__up { align-self: start; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
 
@@ -420,7 +420,7 @@ button { color: inherit; }
   .comfort-card__action { left: 22px; right: 22px; min-height: 56px; }
   .comfort-mobile-status { display: flex; justify-content: space-between; gap: 28px; align-items: flex-start; margin-top: 18px; color: var(--muted); font-size: 13px; line-height: 1.45; letter-spacing: .04em; }
   .comfort-mobile-status span { color: var(--ink); white-space: nowrap; }
-  .comfort-mobile-status b { color: var(--copper); font: inherit; }
+  .comfort-mobile-status b { color: #9a4d32; font: inherit; }
   .comfort-mobile-status p { max-width: 250px; text-align: right; }
 
   .showroom { padding-bottom: 88px; }
@@ -572,13 +572,13 @@ h6 { font-size: var(--type-h6); line-height: 1.25; letter-spacing: -.01em; }
   letter-spacing: -.03em;
 }
 
-.plan__top h4 {
+.plan__top h3 {
   font: 500 var(--type-h4)/1.12 var(--serif);
   letter-spacing: -.03em;
   text-transform: none;
 }
 
-.purchase-card h4 {
+.purchase-card h3 {
   margin: auto 0 30px;
   font: 400 var(--type-h4)/1.12 var(--serif);
   letter-spacing: -.03em;
@@ -754,8 +754,8 @@ h6 { font-size: var(--type-h6); line-height: 1.25; letter-spacing: -.01em; }
   }
 
   .comfort-card__body strong,
-  .purchase-card h4,
-  .plan__top h4 {
+  .purchase-card h3,
+  .plan__top h3 {
     font-size: var(--type-h4);
   }
 
@@ -964,19 +964,19 @@ h6 { font-size: var(--type-h6); line-height: 1.25; letter-spacing: -.01em; }
         <button type="button" data-plan-filter="2" aria-pressed="false" aria-controls="plan-grid">2К <span>09</span></button>
       </div>
       <div class="plans" id="plan-grid" aria-live="polite">
-        <article class="plan reveal" data-room="1" data-cursor="42,37 м²"><div class="plan__top"><h4>1-комнатная</h4><b>42,37 м²</b></div><div class="plan__image"><img src="assets/official/plans/1k-42-37.jpg" width="926" height="812" alt="Планировка однокомнатной квартиры 42,37 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
-        <article class="plan reveal" data-room="1" data-cursor="42,66 м²"><div class="plan__top"><h4>1-комнатная</h4><b>42,66 м²</b></div><div class="plan__image"><img src="assets/official/plans/1k-42-66.jpg" width="800" height="791" alt="Планировка однокомнатной квартиры 42,66 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
-        <article class="plan reveal" data-room="1" data-cursor="43,02 м²"><div class="plan__top"><h4>1-комнатная</h4><b>43,02 м²</b></div><div class="plan__image"><img src="assets/official/plans/1k-43-02.jpg" width="800" height="791" alt="Планировка однокомнатной квартиры 43,02 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
+        <article class="plan reveal" data-room="1" data-cursor="42,37 м²"><div class="plan__top"><h3>1-комнатная</h3><b>42,37 м²</b></div><div class="plan__image"><img src="assets/official/plans/1k-42-37.jpg" width="926" height="812" alt="Планировка однокомнатной квартиры 42,37 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
+        <article class="plan reveal" data-room="1" data-cursor="42,66 м²"><div class="plan__top"><h3>1-комнатная</h3><b>42,66 м²</b></div><div class="plan__image"><img src="assets/official/plans/1k-42-66.jpg" width="800" height="791" alt="Планировка однокомнатной квартиры 42,66 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
+        <article class="plan reveal" data-room="1" data-cursor="43,02 м²"><div class="plan__top"><h3>1-комнатная</h3><b>43,02 м²</b></div><div class="plan__image"><img src="assets/official/plans/1k-43-02.jpg" width="800" height="791" alt="Планировка однокомнатной квартиры 43,02 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
 
-        <article class="plan reveal" data-room="2" data-cursor="65,30 м²" hidden><div class="plan__top"><h4>2-комнатная</h4><b>65,30 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-65-30.jpg" width="791" height="800" alt="Планировка двухкомнатной квартиры 65,30 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
-        <article class="plan reveal" data-room="2" data-cursor="70,90 м²" hidden><div class="plan__top"><h4>2-комнатная</h4><b>70,90 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-70-90.jpg" width="791" height="800" alt="Планировка двухкомнатной квартиры 70,90 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
-        <article class="plan reveal" data-room="2" data-cursor="67,37 м²" hidden><div class="plan__top"><h4>2-комнатная</h4><b>67,37 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-67-37.jpg" width="700" height="700" alt="Планировка двухкомнатной квартиры 67,37 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
-        <article class="plan reveal" data-room="2" data-cursor="64,97 м²" hidden><div class="plan__top"><h4>2-комнатная</h4><b>64,97 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-64-97.jpg" width="952" height="785" alt="Планировка двухкомнатной квартиры 64,97 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
-        <article class="plan reveal" data-room="2" data-cursor="63,11 м²" hidden><div class="plan__top"><h4>2-комнатная</h4><b>63,11 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-63-11.jpg" width="791" height="800" alt="Планировка двухкомнатной квартиры 63,11 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
-        <article class="plan reveal" data-room="2" data-cursor="66,42 м²" hidden><div class="plan__top"><h4>2-комнатная</h4><b>66,42 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-66-42.jpg" width="791" height="800" alt="Планировка двухкомнатной квартиры 66,42 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
-        <article class="plan reveal" data-room="2" data-cursor="68,40 м²" hidden><div class="plan__top"><h4>2-комнатная</h4><b>68,40 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-68-40.jpg" width="800" height="791" alt="Планировка двухкомнатной квартиры 68,40 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
-        <article class="plan reveal" data-room="2" data-cursor="69,78 м²" hidden><div class="plan__top"><h4>2-комнатная</h4><b>69,78 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-69-78.jpg" width="791" height="800" alt="Планировка двухкомнатной квартиры 69,78 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
-        <article class="plan reveal" data-room="2" data-cursor="46,13 м²" hidden><div class="plan__top"><h4>2-комнатная</h4><b>46,13 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-46-13.jpg" width="800" height="791" alt="Планировка двухкомнатной квартиры 46,13 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
+        <article class="plan reveal" data-room="2" data-cursor="65,30 м²" hidden><div class="plan__top"><h3>2-комнатная</h3><b>65,30 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-65-30.jpg" width="791" height="800" alt="Планировка двухкомнатной квартиры 65,30 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
+        <article class="plan reveal" data-room="2" data-cursor="70,90 м²" hidden><div class="plan__top"><h3>2-комнатная</h3><b>70,90 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-70-90.jpg" width="791" height="800" alt="Планировка двухкомнатной квартиры 70,90 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
+        <article class="plan reveal" data-room="2" data-cursor="67,37 м²" hidden><div class="plan__top"><h3>2-комнатная</h3><b>67,37 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-67-37.jpg" width="700" height="700" alt="Планировка двухкомнатной квартиры 67,37 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
+        <article class="plan reveal" data-room="2" data-cursor="64,97 м²" hidden><div class="plan__top"><h3>2-комнатная</h3><b>64,97 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-64-97.jpg" width="952" height="785" alt="Планировка двухкомнатной квартиры 64,97 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
+        <article class="plan reveal" data-room="2" data-cursor="63,11 м²" hidden><div class="plan__top"><h3>2-комнатная</h3><b>63,11 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-63-11.jpg" width="791" height="800" alt="Планировка двухкомнатной квартиры 63,11 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
+        <article class="plan reveal" data-room="2" data-cursor="66,42 м²" hidden><div class="plan__top"><h3>2-комнатная</h3><b>66,42 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-66-42.jpg" width="791" height="800" alt="Планировка двухкомнатной квартиры 66,42 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
+        <article class="plan reveal" data-room="2" data-cursor="68,40 м²" hidden><div class="plan__top"><h3>2-комнатная</h3><b>68,40 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-68-40.jpg" width="800" height="791" alt="Планировка двухкомнатной квартиры 68,40 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
+        <article class="plan reveal" data-room="2" data-cursor="69,78 м²" hidden><div class="plan__top"><h3>2-комнатная</h3><b>69,78 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-69-78.jpg" width="791" height="800" alt="Планировка двухкомнатной квартиры 69,78 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
+        <article class="plan reveal" data-room="2" data-cursor="46,13 м²" hidden><div class="plan__top"><h3>2-комнатная</h3><b>46,13 м²</b></div><div class="plan__image"><img src="assets/official/plans/2k-46-13.jpg" width="800" height="791" alt="Планировка двухкомнатной квартиры 46,13 м²" loading="lazy" decoding="async" /></div><div class="plan__bottom"><a href="#request">Узнать условия <b>↗</b></a></div></article>
       </div>
     </section>
 
@@ -1008,9 +1008,9 @@ h6 { font-size: var(--type-h6); line-height: 1.25; letter-spacing: -.01em; }
     <section class="purchase section">
       <div class="purchase__heading"><p class="kicker reveal">07 / Условия</p><h2 class="reveal">Выберите свои<br /><em>условия покупки</em></h2></div>
       <div class="purchase__track" tabindex="0">
-        <article class="purchase-card purchase-card--lime"><span>01 / Ипотека</span><h4>Семейная<br />ипотека 6%</h4><p>Платёж от 29 830 ₽ в месяц.</p><b>06%</b></article>
-        <article class="purchase-card purchase-card--arrow"><span>02 / Отделка</span><h4>Ремонт под ключ<br />в ипотеку</h4><p>Включите стоимость готового ремонта в ипотечный платёж.</p><b>↗</b></article>
-        <article class="purchase-card purchase-card--coral"><span>03 / Рассрочка</span><h4>От 40 000 ₽<br />в месяц</h4><p>Первоначальный взнос от 30%.</p><b>0%</b></article>
+        <article class="purchase-card purchase-card--lime"><span>01 / Ипотека</span><h3>Семейная<br />ипотека 6%</h3><p>Платёж от 29 830 ₽ в месяц.</p><b aria-hidden="true">06%</b></article>
+        <article class="purchase-card purchase-card--arrow"><span>02 / Отделка</span><h3>Ремонт под ключ<br />в ипотеку</h3><p>Включите стоимость готового ремонта в ипотечный платёж.</p><b aria-hidden="true">↗</b></article>
+        <article class="purchase-card purchase-card--coral"><span>03 / Рассрочка</span><h3>От 40 000 ₽<br />в месяц</h3><p>Первоначальный взнос от 30%.</p><b aria-hidden="true">0%</b></article>
       </div>
     </section>
 

@@ -66,13 +66,13 @@ h6 { font-size: var(--type-h6); line-height: 1.25; letter-spacing: -.01em; }
   letter-spacing: -.03em;
 }
 
-.plan__top h4 {
+.plan__top h3 {
   font: 500 var(--type-h4)/1.12 var(--serif);
   letter-spacing: -.03em;
   text-transform: none;
 }
 
-.purchase-card h4 {
+.purchase-card h3 {
   margin: auto 0 30px;
   font: 400 var(--type-h4)/1.12 var(--serif);
   letter-spacing: -.03em;
@@ -248,8 +248,8 @@ h6 { font-size: var(--type-h6); line-height: 1.25; letter-spacing: -.01em; }
   }
 
   .comfort-card__body strong,
-  .purchase-card h4,
-  .plan__top h4 {
+  .purchase-card h3,
+  .plan__top h3 {
     font-size: var(--type-h4);
   }
 
