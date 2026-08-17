@@ -30,7 +30,49 @@
 
   .hero { min-height: 760px; }
   .hero__media { inset: -3%; }
-  .hero__media img { object-position: 22% center; }
+  .hero__media img { object-position: 18% center; }
+  .hero__mobile-sale {
+    position: absolute;
+    z-index: 3;
+    top: 126px;
+    right: var(--gutter);
+    width: min(46vw, 184px);
+    min-height: 118px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 7px;
+    padding: 30px 16px 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.5);
+    background: #0d6257;
+    box-shadow: 0 18px 38px rgba(10,24,19,.24);
+    color: var(--ivory);
+    transform: rotate(-3deg);
+    transform-origin: center;
+  }
+  .hero__mobile-sale::before {
+    content: '';
+    position: absolute;
+    top: 11px;
+    left: 15px;
+    width: 13px;
+    height: 13px;
+    border: 3px solid var(--logo-gold);
+    border-radius: 50%;
+    background: var(--forest-deep);
+  }
+  .hero__mobile-sale strong {
+    font: 600 clamp(20px, 5.5vw, 24px)/1.04 var(--sans);
+    letter-spacing: .025em;
+    text-transform: uppercase;
+  }
+  .hero__mobile-sale span {
+    color: var(--logo-gold);
+    font: 600 clamp(15px, 4.2vw, 18px)/1.05 var(--sans);
+    letter-spacing: .045em;
+    text-transform: uppercase;
+  }
   .hero__meta { top: 88px; left: var(--gutter); right: var(--gutter); }
   .hero__meta span:nth-child(2) { display: none; }
   .hero__sun { top: 120px; right: var(--gutter); padding: 9px 11px; }
@@ -133,6 +175,7 @@
   .hero h1 { font-size: 15.5vw; }
   .hero__offer { margin-left: 0; }
   .hero__main-cta { margin-left: 0; }
+  .hero__mobile-sale { right: 12px; width: min(47vw, 176px); }
   .manifesto h2, .location h2, .benefits h2, .showroom h2, .readiness h2, .apartments h2, .purchase h2, .request h2 { font-size: 41px; }
   .comfort-card, .comfort-card--wide { flex-basis: min(86vw, 360px); height: 480px; }
   .comfort-card__body strong { font-size: 30px; }

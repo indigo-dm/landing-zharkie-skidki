@@ -134,6 +134,7 @@ button { color: inherit; }
   }
 }
 .hero__veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,28,23,.55) 0%, rgba(13,28,23,.08) 35%, rgba(13,28,23,.4) 70%, rgba(13,28,23,.86) 100%), linear-gradient(90deg, rgba(13,28,23,.38), transparent 58%); }
+.hero__mobile-sale { display: none; }
 .hero__meta { position: absolute; top: 130px; left: var(--gutter); right: var(--gutter); display: flex; justify-content: space-between; font-size: var(--copy-large); letter-spacing: .01em; text-transform: none; }
 .hero__sun { position: absolute; top: 140px; right: var(--gutter); width: auto; aspect-ratio: auto; display: flex; align-items: baseline; gap: 7px; padding: 11px 14px; border: 1px solid rgba(255,255,255,.45); border-radius: 0; background: rgba(20,40,33,.45); color: var(--ivory); transform: none; animation: none; backdrop-filter: blur(8px); }
 .hero__sun span { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
@@ -393,7 +394,49 @@ button { color: inherit; }
 
   .hero { min-height: 760px; }
   .hero__media { inset: -3%; }
-  .hero__media img { object-position: 22% center; }
+  .hero__media img { object-position: 18% center; }
+  .hero__mobile-sale {
+    position: absolute;
+    z-index: 3;
+    top: 126px;
+    right: var(--gutter);
+    width: min(46vw, 184px);
+    min-height: 118px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 7px;
+    padding: 30px 16px 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.5);
+    background: #0d6257;
+    box-shadow: 0 18px 38px rgba(10,24,19,.24);
+    color: var(--ivory);
+    transform: rotate(-3deg);
+    transform-origin: center;
+  }
+  .hero__mobile-sale::before {
+    content: '';
+    position: absolute;
+    top: 11px;
+    left: 15px;
+    width: 13px;
+    height: 13px;
+    border: 3px solid var(--logo-gold);
+    border-radius: 50%;
+    background: var(--forest-deep);
+  }
+  .hero__mobile-sale strong {
+    font: 600 clamp(20px, 5.5vw, 24px)/1.04 var(--sans);
+    letter-spacing: .025em;
+    text-transform: uppercase;
+  }
+  .hero__mobile-sale span {
+    color: var(--logo-gold);
+    font: 600 clamp(15px, 4.2vw, 18px)/1.05 var(--sans);
+    letter-spacing: .045em;
+    text-transform: uppercase;
+  }
   .hero__meta { top: 88px; left: var(--gutter); right: var(--gutter); }
   .hero__meta span:nth-child(2) { display: none; }
   .hero__sun { top: 120px; right: var(--gutter); padding: 9px 11px; }
@@ -496,6 +539,7 @@ button { color: inherit; }
   .hero h1 { font-size: 15.5vw; }
   .hero__offer { margin-left: 0; }
   .hero__main-cta { margin-left: 0; }
+  .hero__mobile-sale { right: 12px; width: min(47vw, 176px); }
   .manifesto h2, .location h2, .benefits h2, .showroom h2, .readiness h2, .apartments h2, .purchase h2, .request h2 { font-size: 41px; }
   .comfort-card, .comfort-card--wide { flex-basis: min(86vw, 360px); height: 480px; }
   .comfort-card__body strong { font-size: 30px; }
@@ -757,7 +801,8 @@ h6 { font-size: var(--type-h6); line-height: 1.25; letter-spacing: -.01em; }
 
   .hero h1,
   .hero h1.hero__price-title {
-    font-size: 38px;
+    font-size: clamp(42px, 11.2vw, 50px);
+    line-height: .96;
   }
 
   .manifesto h2,
@@ -855,6 +900,10 @@ h6 { font-size: var(--type-h6); line-height: 1.25; letter-spacing: -.01em; }
         </picture>
       </div>
       <div class="hero__veil"></div>
+      <div class="hero__mobile-sale" aria-label="Жаркие скидки до 2 миллионов рублей">
+        <strong>Жаркие скидки</strong>
+        <span>до 2 млн ₽</span>
+      </div>
       <div class="hero__content">
         <h1 class="hero__price-title"><span>Квартиры в Ростове</span><span class="hero__title-indent">от <strong>118 000 ₽/м²*</strong></span></h1>
         <a class="round-link hero__main-cta" href="#request" data-cursor="Выбрать"><span>Получить подборку</span></a>

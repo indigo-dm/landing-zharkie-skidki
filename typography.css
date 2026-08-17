@@ -229,7 +229,8 @@ h6 { font-size: var(--type-h6); line-height: 1.25; letter-spacing: -.01em; }
 
   .hero h1,
   .hero h1.hero__price-title {
-    font-size: 38px;
+    font-size: clamp(42px, 11.2vw, 50px);
+    line-height: .96;
   }
 
   .manifesto h2,

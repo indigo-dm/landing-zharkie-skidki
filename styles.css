@@ -108,6 +108,7 @@ button { color: inherit; }
   }
 }
 .hero__veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,28,23,.55) 0%, rgba(13,28,23,.08) 35%, rgba(13,28,23,.4) 70%, rgba(13,28,23,.86) 100%), linear-gradient(90deg, rgba(13,28,23,.38), transparent 58%); }
+.hero__mobile-sale { display: none; }
 .hero__meta { position: absolute; top: 130px; left: var(--gutter); right: var(--gutter); display: flex; justify-content: space-between; font-size: var(--copy-large); letter-spacing: .01em; text-transform: none; }
 .hero__sun { position: absolute; top: 140px; right: var(--gutter); width: auto; aspect-ratio: auto; display: flex; align-items: baseline; gap: 7px; padding: 11px 14px; border: 1px solid rgba(255,255,255,.45); border-radius: 0; background: rgba(20,40,33,.45); color: var(--ivory); transform: none; animation: none; backdrop-filter: blur(8px); }
 .hero__sun span { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
