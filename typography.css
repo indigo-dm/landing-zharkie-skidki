@@ -270,6 +270,11 @@ h6 { font-size: var(--type-h6); line-height: 1.25; letter-spacing: -.01em; }
   .hero__main-cta { margin-left: 0; }
 }
 
+@media (max-width: 420px) {
+  .site-header { gap: 0; }
+  .site-header .brand__logo { width: 88px; }
+}
+
 /* Шоу-рум: три уровня — заголовок, основной текст и единый служебный стиль. */
 .showroom__heading .kicker,
 .showroom__aside a,
