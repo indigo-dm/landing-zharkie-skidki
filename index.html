@@ -316,16 +316,26 @@ button { color: inherit; }
 .lead-form label > span, .lead-form legend { display: block; margin-bottom: 10px; color: #9eafa6; font-size: 8px; letter-spacing: .11em; text-transform: uppercase; }
 .lead-form input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--ivory); font: 400 clamp(22px, 2vw, 31px)/1.2 var(--sans); letter-spacing: -.02em; }
 .lead-form input::placeholder { color: #778b81; }
+.lead-form input:focus-visible { outline: 2px solid var(--stone); outline-offset: 6px; }
+.lead-form input[aria-invalid="true"] { color: #ffd6ca; }
+.form-field-error { min-height: 18px; display: block; margin-top: 8px; color: #ffc2b1; font-size: 14px; line-height: 1.35; }
 .lead-form fieldset { margin: 38px 0; border: 0; }
 .lead-form fieldset label { display: inline-block; margin: 0 5px 8px 0; cursor: pointer; }
 .lead-form fieldset input { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; clip-path: inset(50%); }
 .lead-form fieldset span { padding: 8px 12px; border: 1px solid var(--line-light); color: var(--ivory); font-size: 9px; text-transform: none; }
 .lead-form fieldset input:checked + span { border-color: var(--stone); background: var(--stone); color: var(--forest-deep); }
+.lead-form fieldset input:focus-visible + span { outline: 2px solid var(--stone); outline-offset: 3px; }
 .lead-form button { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 8px 8px 8px 18px; border: 0; background: var(--copper); color: var(--ivory); cursor: pointer; font-size: 10px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
 .lead-form button b { width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.45); font-size: 18px; transition: transform .25s; }
 .lead-form button:hover b { transform: translate(2px,-2px); }
+.lead-form button:focus-visible { outline: 2px solid var(--ivory); outline-offset: 4px; }
+.lead-form button:disabled { cursor: wait; opacity: .72; }
 .form-status { min-height: 20px; margin-top: 12px; color: var(--stone); font-size: 11px; }
+.form-status.is-error { color: #ffc2b1; }
+.form-status.is-success { color: #cfe7d9; }
+.form-status a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .form-legal { max-width: 500px; margin-top: 7px; color: #879b90; font-size: 10px; line-height: 1.55; }
+.form-legal a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 
 .footer { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr auto; gap: 42px; padding: 52px var(--gutter); background: #0e201a; color: var(--ivory); border-top: 1px solid rgba(255,255,255,.14); }
 .brand--footer .brand-lockup b { font-size: 20px; }
@@ -1016,13 +1026,13 @@ h6 { font-size: var(--type-h6); line-height: 1.25; letter-spacing: -.01em; }
 
     <section class="request section" id="request">
       <div class="request__copy"><p class="kicker reveal">08 / Сделайте выбор</p><h2 class="reveal">Сделайте первый шаг<br /><em>к вашему новому горизонту</em></h2><p class="reveal">Получите подборку свободных квартир с планировками и актуальными условиями акции.</p></div>
-      <form class="lead-form reveal" data-lead-endpoint="">
-        <label><span>01 / Ваше имя</span><input type="text" name="name" autocomplete="name" placeholder="Как к вам обращаться?" required /></label>
-        <label><span>02 / Телефон</span><input type="tel" name="phone" autocomplete="tel" placeholder="+7 (___) ___-__-__" required /></label>
+      <form class="lead-form reveal" data-lead-endpoint="" novalidate>
+        <label><span>01 / Ваше имя</span><input type="text" name="name" autocomplete="name" placeholder="Как к вам обращаться?" minlength="2" aria-describedby="name-error" required /><small class="form-field-error" id="name-error" aria-live="polite"></small></label>
+        <label><span>02 / Телефон</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" maxlength="18" placeholder="+7 (___) ___-__-__" aria-describedby="phone-error" required /><small class="form-field-error" id="phone-error" aria-live="polite"></small></label>
         <fieldset><legend>03 / Количество комнат</legend><label><input type="radio" name="rooms" value="1" checked /><span>1-комнатная</span></label><label><input type="radio" name="rooms" value="2" /><span>2-комнатная</span></label><label><input type="radio" name="rooms" value="3" /><span>3-комнатная</span></label><label><input type="radio" name="rooms" value="any" /><span>Рассматриваю варианты</span></label></fieldset>
-        <button type="submit"><span>Получить подборку</span><b>↗</b></button>
-        <p class="form-status" aria-live="polite"></p>
-        <p class="form-legal">Нажимая кнопку, вы соглашаетесь на обработку персональных данных. Информация не является публичной офертой.</p>
+        <button type="submit"><span data-submit-label>Получить подборку</span><b aria-hidden="true">↗</b></button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <p class="form-legal">Нажимая кнопку, вы соглашаетесь на <a href="https://zhk-noviy-gorizont.ru/privacy-policy/" target="_blank" rel="noopener">обработку персональных данных</a>. Информация не является публичной офертой.</p>
       </form>
     </section>
   </main>

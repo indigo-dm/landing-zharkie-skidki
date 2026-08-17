@@ -13,7 +13,11 @@ const comfortGrid = document.querySelector('[data-comfort-grid]');
 const comfortCards = [...document.querySelectorAll('.comfort-card')];
 const comfortCounter = document.querySelector('[data-comfort-current]');
 const form = document.querySelector('.lead-form');
+const nameInput = form?.querySelector('input[name="name"]');
 const phoneInput = form?.querySelector('input[type="tel"]');
+const formStatus = form?.querySelector('.form-status');
+const submitButton = form?.querySelector('button[type="submit"]');
+const submitLabel = submitButton?.querySelector('[data-submit-label]');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const revealObserver = new IntersectionObserver((entries) => {
@@ -243,7 +247,12 @@ const caretAfterLocalDigits = (value, localDigitCount) => {
 };
 
 phoneInput?.addEventListener('input', () => {
-  phoneInput.value = formatPhoneDigits(normalizePhoneDigits(phoneInput.value));
+  const rawValue = phoneInput.value;
+  const rawCaret = phoneInput.selectionStart ?? rawValue.length;
+  const localDigitsBeforeCaret = countLocalDigitsBefore(rawValue, rawCaret);
+  phoneInput.value = formatPhoneDigits(normalizePhoneDigits(rawValue));
+  const nextCaret = caretAfterLocalDigits(phoneInput.value, localDigitsBeforeCaret);
+  phoneInput.setSelectionRange(nextCaret, nextCaret);
 });
 
 phoneInput?.addEventListener('keydown', (event) => {
@@ -282,27 +291,93 @@ phoneInput?.addEventListener('keydown', (event) => {
   phoneInput.setSelectionRange(nextCaret, nextCaret);
 });
 
+const setFieldError = (input, message = '') => {
+  if (!input) return;
+  const error = document.getElementById(input.getAttribute('aria-describedby'));
+  input.setAttribute('aria-invalid', String(Boolean(message)));
+  input.setCustomValidity(message);
+  if (error) error.textContent = message;
+};
+
+const validateName = () => {
+  const value = nameInput?.value.trim() || '';
+  const message = value.length >= 2 ? '' : 'Введите имя — минимум 2 символа.';
+  setFieldError(nameInput, message);
+  return !message;
+};
+
+const validatePhone = () => {
+  const digits = normalizePhoneDigits(phoneInput?.value || '');
+  const message = digits.length === 11 ? '' : 'Введите телефон полностью: 10 цифр после +7.';
+  setFieldError(phoneInput, message);
+  return !message;
+};
+
+const setFormStatus = (message = '', state = '', showPhoneLink = false) => {
+  if (!formStatus) return;
+  formStatus.classList.toggle('is-error', state === 'error');
+  formStatus.classList.toggle('is-success', state === 'success');
+  formStatus.setAttribute('role', state === 'error' ? 'alert' : 'status');
+  formStatus.textContent = message;
+  if (!showPhoneLink) return;
+  formStatus.append(' ');
+  const link = document.createElement('a');
+  link.href = 'tel:+78632043445';
+  link.textContent = '+7 (863) 204-34-45';
+  formStatus.append(link);
+};
+
+const setSubmitting = (isSubmitting) => {
+  if (!submitButton) return;
+  submitButton.disabled = isSubmitting;
+  submitButton.setAttribute('aria-busy', String(isSubmitting));
+  if (submitLabel) submitLabel.textContent = isSubmitting ? 'Отправляем…' : 'Получить подборку';
+};
+
+nameInput?.addEventListener('input', () => {
+  if (nameInput.getAttribute('aria-invalid') === 'true') validateName();
+});
+nameInput?.addEventListener('blur', validateName);
+phoneInput?.addEventListener('input', () => {
+  if (phoneInput.getAttribute('aria-invalid') === 'true') validatePhone();
+});
+phoneInput?.addEventListener('blur', validatePhone);
+
 form?.addEventListener('submit', async (event) => {
   event.preventDefault();
-  const status = form.querySelector('.form-status');
-  const endpoint = form.dataset.leadEndpoint;
+  setFormStatus();
 
-  if (!form.checkValidity()) {
-    form.reportValidity();
+  const nameIsValid = validateName();
+  const phoneIsValid = validatePhone();
+  if (!nameIsValid || !phoneIsValid) {
+    setFormStatus('Проверьте выделенные поля.', 'error');
+    form.querySelector('[aria-invalid="true"]')?.focus();
     return;
   }
 
+  const endpoint = form.dataset.leadEndpoint?.trim();
   if (!endpoint) {
-    status.textContent = 'Форма готова. Перед публикацией подключите её к CRM.';
+    setFormStatus('Онлайн-отправка пока не подключена. Позвоните в отдел продаж:', 'error', true);
     return;
   }
+
+  nameInput.value = nameInput.value.trim();
+  setSubmitting(true);
 
   try {
-    const response = await fetch(endpoint, { method: 'POST', body: new FormData(form) });
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' },
+    });
     if (!response.ok) throw new Error('Lead endpoint error');
     form.reset();
-    status.textContent = 'Спасибо! Менеджер свяжется с вами в ближайшее время.';
+    setFieldError(nameInput);
+    setFieldError(phoneInput);
+    setFormStatus('Спасибо! Менеджер свяжется с вами в ближайшее время.', 'success');
   } catch {
-    status.textContent = 'Не удалось отправить заявку. Позвоните по номеру на странице.';
+    setFormStatus('Не удалось отправить заявку. Позвоните в отдел продаж:', 'error', true);
+  } finally {
+    setSubmitting(false);
   }
 });
