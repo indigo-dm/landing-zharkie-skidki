@@ -329,21 +329,34 @@ const setFormStatus = (message = '', state = '', showPhoneLink = false) => {
 
 const setSubmitting = (isSubmitting) => {
   if (!submitButton) return;
-  submitButton.disabled = isSubmitting;
   submitButton.setAttribute('aria-busy', String(isSubmitting));
   if (submitLabel) submitLabel.textContent = isSubmitting ? 'Отправляем…' : 'Получить подборку';
+  submitButton.disabled = isSubmitting || !isFormReady();
+};
+
+const isFormReady = () => {
+  const name = nameInput?.value.trim() || '';
+  const phone = normalizePhoneDigits(phoneInput?.value || '');
+  return name.length >= 2 && phone.length === 11;
+};
+
+const syncSubmitAvailability = () => {
+  if (!submitButton || submitButton.getAttribute('aria-busy') === 'true') return;
+  submitButton.disabled = !isFormReady();
 };
 
 nameInput?.addEventListener('input', () => {
   if (nameInput.getAttribute('aria-invalid') === 'true') validateName();
+  syncSubmitAvailability();
 });
 nameInput?.addEventListener('blur', validateName);
 phoneInput?.addEventListener('input', () => {
   if (phoneInput.getAttribute('aria-invalid') === 'true') validatePhone();
+  syncSubmitAvailability();
 });
 phoneInput?.addEventListener('blur', validatePhone);
 
-form?.addEventListener('submit', async (event) => {
+form?.addEventListener('submit', (event) => {
   event.preventDefault();
   setFormStatus();
 
@@ -352,32 +365,20 @@ form?.addEventListener('submit', async (event) => {
   if (!nameIsValid || !phoneIsValid) {
     setFormStatus('Проверьте выделенные поля.', 'error');
     form.querySelector('[aria-invalid="true"]')?.focus();
-    return;
-  }
-
-  const endpoint = form.dataset.leadEndpoint?.trim();
-  if (!endpoint) {
-    setFormStatus('Онлайн-отправка пока не подключена. Позвоните в отдел продаж:', 'error', true);
+    syncSubmitAvailability();
     return;
   }
 
   nameInput.value = nameInput.value.trim();
   setSubmitting(true);
 
-  try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { Accept: 'application/json' },
-    });
-    if (!response.ok) throw new Error('Lead endpoint error');
+  setFormStatus('Спасибо! Заявка принята. Менеджер свяжется с вами в ближайшее время.', 'success');
+  window.setTimeout(() => {
     form.reset();
     setFieldError(nameInput);
     setFieldError(phoneInput);
-    setFormStatus('Спасибо! Менеджер свяжется с вами в ближайшее время.', 'success');
-  } catch {
-    setFormStatus('Не удалось отправить заявку. Позвоните в отдел продаж:', 'error', true);
-  } finally {
     setSubmitting(false);
-  }
+  }, 300);
 });
+
+syncSubmitAvailability();

@@ -316,7 +316,8 @@ button { color: inherit; }
 .lead-form button b { width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.45); font-size: 18px; transition: transform .25s; }
 .lead-form button:hover b { transform: translate(2px,-2px); }
 .lead-form button:focus-visible { outline: 2px solid var(--ivory); outline-offset: 4px; }
-.lead-form button:disabled { cursor: wait; opacity: .72; }
+.lead-form button:disabled { cursor: not-allowed; opacity: .72; }
+.lead-form button[aria-busy="true"] { cursor: wait; }
 .form-status { min-height: 20px; margin-top: 12px; color: var(--stone); font-size: 11px; }
 .form-status.is-error { color: #ffc2b1; }
 .form-status.is-success { color: #cfe7d9; }
