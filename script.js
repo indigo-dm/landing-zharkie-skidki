@@ -19,6 +19,8 @@ const formStatus = form?.querySelector('.form-status');
 const submitButton = form?.querySelector('button[type="submit"]');
 const submitLabel = submitButton?.querySelector('[data-submit-label]');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const metrikaCounterId = 74982469;
+const leadFormGoalId = 'lead_form_submit';
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -345,6 +347,11 @@ const syncSubmitAvailability = () => {
   submitButton.disabled = !isFormReady();
 };
 
+const reachMetrikaGoal = (goalId) => {
+  if (typeof window.ym !== 'function') return;
+  window.ym(metrikaCounterId, 'reachGoal', goalId);
+};
+
 nameInput?.addEventListener('input', () => {
   if (nameInput.getAttribute('aria-invalid') === 'true') validateName();
   syncSubmitAvailability();
@@ -371,6 +378,7 @@ form?.addEventListener('submit', (event) => {
 
   nameInput.value = nameInput.value.trim();
   setSubmitting(true);
+  reachMetrikaGoal(leadFormGoalId);
 
   setFormStatus('Спасибо! Заявка принята. Менеджер свяжется с вами в ближайшее время.', 'success');
   window.setTimeout(() => {
