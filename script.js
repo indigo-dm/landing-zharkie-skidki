@@ -12,6 +12,10 @@ const showroomButtons = document.querySelectorAll('[data-showroom-slide]');
 const comfortGrid = document.querySelector('[data-comfort-grid]');
 const comfortCards = [...document.querySelectorAll('.comfort-card')];
 const comfortCounter = document.querySelector('[data-comfort-current]');
+const leadModal = document.querySelector('.lead-modal');
+const leadDialog = leadModal?.querySelector('[role="dialog"]');
+const leadOpeners = [...document.querySelectorAll('a[href="#request"]')];
+const leadCloseButton = leadModal?.querySelector('[data-lead-close]');
 const form = document.querySelector('.lead-form');
 const nameInput = form?.querySelector('input[name="name"]');
 const phoneInput = form?.querySelector('input[type="tel"]');
@@ -21,6 +25,127 @@ const submitLabel = submitButton?.querySelector('[data-submit-label]');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const metrikaCounterId = 74982469;
 const leadFormGoalId = 'lead_form_submit';
+
+let leadModalOpener = null;
+let leadModalCloseTimer = 0;
+
+const getLeadSource = (opener) => {
+  if (opener.closest('.plan')) return 'plan';
+  if (opener.closest('.showroom')) return 'showroom';
+  if (opener.closest('.hero')) return 'hero';
+  if (opener.closest('.big-offer')) return 'offers';
+  if (opener.closest('.request')) return 'request';
+  if (opener.closest('.site-header')) return 'header';
+  return 'landing';
+};
+
+const getDialogFocusables = () => leadDialog
+  ? [...leadDialog.querySelectorAll('a[href], button:not([disabled]), input:not([type="hidden"]):not([disabled]), [tabindex]:not([tabindex="-1"])')]
+  : [];
+
+const setLeadMetadata = (source, plan = '') => {
+  if (!form) return;
+  form.dataset.leadSource = source;
+  form.dataset.leadPlan = plan;
+  const sourceInput = form.elements.namedItem('source');
+  const planInput = form.elements.namedItem('plan');
+  if (sourceInput) sourceInput.value = source;
+  if (planInput) planInput.value = plan;
+};
+
+const openLeadModal = (opener) => {
+  if (!leadModal || !leadDialog || !form) return;
+  window.clearTimeout(leadModalCloseTimer);
+  leadModalOpener = opener;
+
+  const planCard = opener.closest('.plan[data-room]');
+  setLeadMetadata(getLeadSource(opener), planCard?.dataset.cursor || '');
+  if (planCard) {
+    const roomLabels = {
+      1: '1-комнатная',
+      2: '2-комнатная',
+      3: '3-комнатная',
+    };
+    const roomInput = form.querySelector(`input[name="rooms"][value="${roomLabels[planCard.dataset.room] || ''}"]`);
+    if (roomInput) roomInput.checked = true;
+  }
+
+  leadModal.hidden = false;
+  document.body.classList.add('is-modal-open');
+  document.querySelectorAll('.skip-link, .site-header, main, .footer').forEach((element) => {
+    element.inert = true;
+  });
+  window.requestAnimationFrame(() => {
+    leadModal.classList.add('is-open');
+    window.requestAnimationFrame(() => nameInput?.focus({ preventScroll: true }));
+  });
+};
+
+const closeLeadModal = () => {
+  if (!leadModal || leadModal.hidden) return;
+  leadModal.classList.remove('is-open');
+  document.body.classList.remove('is-modal-open');
+  document.querySelectorAll('.skip-link, .site-header, main, .footer').forEach((element) => {
+    element.inert = false;
+  });
+
+  const finishClose = () => {
+    leadModal.hidden = true;
+    leadModalOpener?.focus();
+    leadModalOpener = null;
+  };
+
+  if (reducedMotion) {
+    finishClose();
+    return;
+  }
+  leadModalCloseTimer = window.setTimeout(finishClose, 250);
+};
+
+leadOpeners.forEach((opener) => {
+  opener.setAttribute('aria-haspopup', 'dialog');
+  opener.setAttribute('aria-controls', 'lead-dialog');
+  opener.addEventListener('click', (event) => {
+    event.preventDefault();
+    openLeadModal(opener);
+  });
+});
+
+leadCloseButton?.addEventListener('click', closeLeadModal);
+leadModal?.addEventListener('click', (event) => {
+  if (event.target === leadModal) closeLeadModal();
+});
+
+document.addEventListener('keydown', (event) => {
+  if (!leadModal || leadModal.hidden) return;
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    closeLeadModal();
+    return;
+  }
+  if (event.key !== 'Tab') return;
+
+  const focusables = getDialogFocusables();
+  if (!focusables.length) {
+    event.preventDefault();
+    leadDialog?.focus();
+    return;
+  }
+  const first = focusables[0];
+  const last = focusables[focusables.length - 1];
+  if (!leadDialog?.contains(document.activeElement)) {
+    event.preventDefault();
+    (event.shiftKey ? last : first).focus();
+    return;
+  }
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+});
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
